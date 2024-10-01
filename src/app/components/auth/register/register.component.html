@@ -1,0 +1,86 @@
+<div class="register-container" role="form" aria-labelledby="register-heading">
+  <div class="register-form">
+    <h2 id="register-heading">Register</h2>
+    <form
+      [formGroup]="registerForm"
+      (ngSubmit)="onRegister()"
+      aria-label="Registration form"
+    >
+      <div class="username">
+        <label for="username">User Name</label>
+        <input
+          type="text"
+          name="username"
+          id="username"
+          formControlName="username"
+          autocomplete="name"
+          aria-required="true"
+          aria-describedby="username-help"
+        />
+        <span id="username-help" class="visually-hidden">
+          Please enter your username.
+        </span>
+      </div>
+      <div class="email">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          formControlName="email"
+          autocomplete="email"
+          aria-required="true"
+          aria-describedby="email-help"
+        />
+        <span id="email-help" class="visually-hidden">
+          Please enter your email address.
+        </span>
+      </div>
+      <div class="password">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          formControlName="password"
+          autocomplete="current-password"
+          aria-required="true"
+          aria-describedby="password-help"
+        />
+        <span id="password-help" class="visually-hidden">
+          Please enter your password.
+        </span>
+      </div>
+      <div class="profile-img">
+        <label for="profile-img">Profile Image</label>
+        <input
+          type="file"
+          name="profile-img"
+          id="profile-img"
+          (change)="onFileSelected($event)"
+          aria-describedby="profile-img-help"
+        />
+        <span id="profile-img-help" class="visually-hidden">
+          Choose a profile image.
+        </span>
+      </div>
+      <div class="submit-btn">
+        <button type="submit" aria-label="Submit registration form">
+          Register
+        </button>
+      </div>
+
+      <p *ngIf="errorMessage" class="error-message" role="alert">
+        {{ errorMessage }}
+      </p>
+    </form>
+    <div>
+      <p>
+        Already have an account?
+        <a [routerLink]="['', 'login']" aria-label="Login to your account"
+          >Login</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
