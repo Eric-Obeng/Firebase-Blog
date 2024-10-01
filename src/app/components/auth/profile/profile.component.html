@@ -1,0 +1,21 @@
+<div class="user" *ngIf="user" aria-labelledby="user-info">
+  <h2>My Profile</h2>
+  <div class="user-info" id="user-info" aria-labelledby="user-name user-email">
+    <div class="user-img" aria-hidden="true">
+      <img
+        *ngIf="user.photoURL"
+        [src]="user.photoURL"
+        alt="User profile picture"
+      />
+    </div>
+    <div class="user-details">
+      <h2 id="user-name">{{ user.displayName }}</h2>
+      <p id="user-email">{{ user.email }}</p>
+    </div>
+  </div>
+  <div class="user-actions">
+    <button (click)="onLogout()" aria-label="Log out from your account">
+      Logout
+    </button>
+  </div>
+</div>
