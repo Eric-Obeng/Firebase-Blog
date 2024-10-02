@@ -36,7 +36,7 @@ export class LoginComponent {
         this.errorMessage = '';
         console.log('User logged in Successful:', user);
         this.loginForm.reset();
-        this.router.navigate(['profile']);
+        this.router.navigate(['blog-post']);
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -45,11 +45,12 @@ export class LoginComponent {
   }
 
   onGoggleSignIn() {
-    this.authService.goggleSignIn().subscribe({
+    this.authService.googleSignIn().subscribe({
       next: () => {
         this.errorMessage = '';
         console.log('User sign-in Successful:', user);
         this.loginForm.reset();
+        this.router.navigate(['blog-post'])
       },
       error: (error) => {
         this.errorMessage = error.message;

@@ -6,7 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { AuthService } from '../../../services/auth/auth.service';
-import { updateProfile, User } from '@angular/fire/auth';
+import { User } from '@angular/fire/auth';
 import { CommonModule } from '@angular/common';
 import { Router, RouterLink } from '@angular/router';
 
@@ -37,7 +37,22 @@ export class RegisterComponent {
 
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
-    this.selectedFile = file;
+
+    if (file) {
+      const maxSize = 1048576;
+      const allowedTypes = ['image/jpeg', 'image/png', 'image/gif'];
+
+      if (file.size > maxSize) {
+        this.errorMessage = 'File size must be less than 1MB.';
+        this.selectedFile = null;
+      } else if (!allowedTypes.includes(file.type)) {
+        this.errorMessage = 'Only image files (JPEG, PNG, GIF) are allowed.';
+        this.selectedFile = null;
+      } else {
+        this.errorMessage = '';
+        this.selectedFile = file;
+      }
+    }
   }
 
   onRegister() {
@@ -46,8 +61,6 @@ export class RegisterComponent {
     this.authService.register(email, password).subscribe({
       next: (user) => {
         this.updateUserProfile(user, username);
-        this.registerForm.reset();
-        this.router.navigate(['profile']);
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -58,17 +71,33 @@ export class RegisterComponent {
 
   updateUserProfile(user: User, username: string) {
     if (this.selectedFile) {
-      this.authService
-        .uploadProfilePicture(this.selectedFile, user)
-        .subscribe((photoURL) => {
-          updateProfile(user, { displayName: username, photoURL }).then(() => {
-            console.log('User profile updated successfully with picture');
-          });
-        });
+      this.authService.uploadProfilePicture(this.selectedFile, user).subscribe({
+        next: (photoURL) => {
+          this.authService
+            .updateUserProfile(user, username, photoURL)
+            .subscribe({
+              next: () => this.onRegistrationSuccess(),
+              error: (error) => this.handleError(error),
+            });
+        },
+        error: (error) => this.handleError(error),
+      });
     } else {
-      updateProfile(user, { displayName: username }).then(() => {
-        console.log('User profile updated successfully without picture');
+      this.authService.updateUserProfile(user, username).subscribe({
+        next: () => this.onRegistrationSuccess(),
+        error: (error) => this.handleError(error),
       });
     }
+  }
+
+  private onRegistrationSuccess() {
+    console.log('User profile updated successfully');
+    this.registerForm.reset();
+    this.router.navigate(['profile']);
+  }
+
+  private handleError(error: any) {
+    this.errorMessage = error.message;
+    console.error(error);
   }
 }
