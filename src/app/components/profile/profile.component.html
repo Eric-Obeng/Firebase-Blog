@@ -18,4 +18,9 @@
       Logout
     </button>
   </div>
+  <button class="btn" (click)="onShowPostModal()">Create Post</button>
 </div>
+
+@if (showPostModal) {
+<app-create-post />
+}
