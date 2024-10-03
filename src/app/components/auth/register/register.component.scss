@@ -1,3 +1,7 @@
+@use "../../../../stylesheet/mixins" as *;
+@use "../../../../stylesheet/buttons" as *;
+@use "../../../../stylesheet/variables" as *;
+
 .visually-hidden {
   position: absolute;
   width: 1px;
@@ -7,4 +11,75 @@
   overflow: hidden;
   clip: rect(0, 0, 0, 0);
   border: 0;
+}
+
+.register-container {
+  height: 100vh;
+  width: 100%;
+  @include flex-row(center, center);
+
+  .register-form {
+    @include flex-column(flex-start, center, 2rem);
+    border-radius: 1rem;
+    background-color: #f8f8f8;
+    width: 40rem;
+    padding: 2rem;
+
+    .form {
+      @include flex-column(flex-start, center, 2rem);
+      width: 100%;
+
+      .form-group {
+        @include flex-column(flex-start, center, 0.2rem);
+        width: 100%;
+
+        input {
+          width: 100%;
+          // height: 4rem;
+          padding: 1rem;
+        }
+
+        button {
+          width: 100%;
+          padding: 1rem;
+          background-color: $color-200;
+          border: none;
+          color: $white;
+          border-radius: 1rem;
+          cursor: pointer;
+          font-size: 1.5rem;
+          font-weight: 600;
+
+          &:hover {
+            background-color: $color-300;
+          }
+        }
+      }
+
+      & .account {
+        width: 100%;
+        font-size: 2rem;
+        text-align: center;
+
+        a {
+          text-decoration: none;
+          color: $color-100;
+
+          &:link,
+          &:active {
+            color: $color-100;
+          }
+        }
+      }
+
+      .error-message {
+        width: 100%;
+        background: $white;
+        color: red;
+        text-align: center;
+        font-size: 2rem;
+        padding: 1rem;
+      }
+    }
+  }
 }

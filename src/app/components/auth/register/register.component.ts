@@ -93,7 +93,7 @@ export class RegisterComponent {
   private onRegistrationSuccess() {
     console.log('User profile updated successfully');
     this.registerForm.reset();
-    this.router.navigate(['profile']);
+    this.router.navigate(['']);
   }
 
   private handleError(error: any) {

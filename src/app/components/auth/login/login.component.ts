@@ -36,7 +36,7 @@ export class LoginComponent {
         this.errorMessage = '';
         console.log('User logged in Successful:', user);
         this.loginForm.reset();
-        this.router.navigate(['blog-post']);
+        this.router.navigate(['']);
       },
       error: (error) => {
         this.errorMessage = error.message;
@@ -50,7 +50,7 @@ export class LoginComponent {
         this.errorMessage = '';
         console.log('User sign-in Successful:', user);
         this.loginForm.reset();
-        this.router.navigate(['blog-post'])
+        this.router.navigate([''])
       },
       error: (error) => {
         this.errorMessage = error.message;

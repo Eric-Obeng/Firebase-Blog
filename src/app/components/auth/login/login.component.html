@@ -52,14 +52,14 @@
       <div class="submit form-group">
         <button type="submit" aria-label="Submit login form">Login</button>
       </div>
+      <div class="form-group">
+        <p class="account">
+          Don't have an account?
+          <a [routerLink]="['', 'register']" aria-label="Register an account"
+            >Register</a
+          >
+        </p>
+      </div>
     </form>
-    <div class="form-group">
-      <p>
-        Don't have an account?
-        <a [routerLink]="['', 'register']" aria-label="Register an account"
-          >Register</a
-        >
-      </p>
-    </div>
   </div>
 </div>
