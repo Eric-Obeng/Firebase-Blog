@@ -5,8 +5,9 @@
       [formGroup]="registerForm"
       (ngSubmit)="onRegister()"
       aria-label="Registration form"
+      class="form"
     >
-      <div class="username">
+      <div class="username form-group">
         <label for="username">User Name</label>
         <input
           type="text"
@@ -21,7 +22,7 @@
           Please enter your username.
         </span>
       </div>
-      <div class="email">
+      <div class="email form-group">
         <label for="email">Email</label>
         <input
           type="email"
@@ -36,7 +37,7 @@
           Please enter your email address.
         </span>
       </div>
-      <div class="password">
+      <div class="password form-group">
         <label for="password">Password</label>
         <input
           type="password"
@@ -51,7 +52,7 @@
           Please enter your password.
         </span>
       </div>
-      <div class="profile-img">
+      <div class="profile-img form-group">
         <label for="profile-img">Profile Image</label>
         <input
           type="file"
@@ -65,7 +66,7 @@
           Choose a profile image.
         </span>
       </div>
-      <div class="submit-btn">
+      <div class="submit-btn form-group">
         <button type="submit" aria-label="Submit registration form">
           Register
         </button>
@@ -74,14 +75,14 @@
       <p *ngIf="errorMessage" class="error-message" role="alert">
         {{ errorMessage }}
       </p>
+      <div form-group>
+        <p class="account">
+          Already have an account?
+          <a [routerLink]="['', 'login']" aria-label="Login to your account"
+            >Login</a
+          >
+        </p>
+      </div>
     </form>
-    <div>
-      <p>
-        Already have an account?
-        <a [routerLink]="['', 'login']" aria-label="Login to your account"
-          >Login</a
-        >
-      </p>
-    </div>
   </div>
 </div>
