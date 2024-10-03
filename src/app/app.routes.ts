@@ -24,7 +24,7 @@ export const routes: Routes = [
       ),
   },
   {
-    path: 'blog-post',
+    path: '',
     loadComponent: () =>
       import('./components/blog-post/blog-post.component').then(
         (b) => b.BlogPostComponent
