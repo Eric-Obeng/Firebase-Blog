@@ -22,7 +22,7 @@ import {
   provideRemoteConfig,
 } from '@angular/fire/remote-config';
 import { getVertexAI, provideVertexAI } from '@angular/fire/vertexai-preview';
-import { environment } from '../environments/environment';
+import { environment } from '../environments/environment.development';
 import { provideServiceWorker } from '@angular/service-worker';
 
 export const appConfig: ApplicationConfig = {
