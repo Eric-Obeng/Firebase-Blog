@@ -79,6 +79,7 @@ export class CreatePostComponent implements OnInit {
           content: post.content,
           author: post.author,
         });
+        console.log(this.userId);
       } else {
         // Handle unauthorized editing attempt
         console.error('Unauthorized to edit this post.');
@@ -92,8 +93,8 @@ export class CreatePostComponent implements OnInit {
     const postData: Post = {
       ...this.postForm.getRawValue(), // Get all form values including disabled fields
       authorId: this.userId!,
-      createdAt: this.isEditMode ? this.postToEdit?.createdAt : new Date(),
-      updatedAt: new Date(),
+      createdAt: this.isEditMode ? this.postToEdit?.createdAt : new Date().toLocaleDateString(),
+      updatedAt: new Date().toLocaleDateString(),
     };
 
     if (this.isEditMode && this.postId) {

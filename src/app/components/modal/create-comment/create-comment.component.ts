@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 import { CommentService } from '../../../services/comment/comment.service';
 import { Comment } from '../../../model/comment';
 import {
@@ -22,6 +22,7 @@ export class CreateCommentComponent implements OnInit {
   @Input() postId!: string;
   @Input() isEditMode: boolean = false;
   @Input() commentId!: string;
+  @Output() closeForm = new EventEmitter<void>();
 
   commentForm!: FormGroup;
   displayName: string | null = '';
@@ -95,8 +96,10 @@ export class CreateCommentComponent implements OnInit {
         this.commentId,
         commentData
       );
+      this.closeForm.emit();
     } else {
       this.commentService.addComment(this.postId, commentData);
+      this.closeForm.emit();
     }
 
     this.commentForm.reset();

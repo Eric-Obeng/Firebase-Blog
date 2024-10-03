@@ -28,8 +28,8 @@ export class PostService {
     const postData: Post = {
       ...post,
       id,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toLocaleDateString(),
+      updatedAt: new Date().toLocaleDateString(),
     };
 
     await setDoc(newDoc, postData);

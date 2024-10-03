@@ -4,7 +4,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
 import { Router } from '@angular/router';
 import { UserProfile } from '../../model/user-profile';
-import { CreatePostComponent } from "../modal/create-post/create-post.component";
+import { CreatePostComponent } from '../modal/create-post/create-post.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,7 +20,7 @@ export class ProfileComponent implements OnInit {
   constructor(private authService: AuthService, private router: Router) {}
 
   ngOnInit(): void {
-    this.authService.getCurrentUser().subscribe(firebaseUser => {
+    this.authService.getCurrentUser().subscribe((firebaseUser) => {
       if (firebaseUser) {
         this.updateUserProfile(firebaseUser);
       } else {
@@ -44,9 +44,11 @@ export class ProfileComponent implements OnInit {
   }
 
   onLogout(): void {
-    this.authService.logout().subscribe(() => {
-      this.router.navigate(['login']);
-    });
+    if (confirm('Are sure you want to logout?')) {
+      this.authService.logout().subscribe(() => {
+        this.router.navigate(['login']);
+      });
+    }
   }
 
   onShowPostModal() {

@@ -4,11 +4,12 @@ import { CommentService } from '../../services/comment/comment.service';
 import { AuthService } from '../../services/auth/auth.service';
 import { Post } from '../../model/post';
 import { Comment } from '../../model/comment';
-import { catchError, forkJoin, of, Subscription, tap } from 'rxjs';
+import { catchError, forkJoin, of, Subscription, switchMap, tap } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { ProfileComponent } from '../profile/profile.component';
 import { CreatePostComponent } from '../modal/create-post/create-post.component';
 import { CreateCommentComponent } from '../modal/create-comment/create-comment.component';
+import { Auth, user } from '@angular/fire/auth';
 
 @Component({
   selector: 'app-blog-post',
@@ -27,6 +28,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   comments: { [postId: string]: Comment[] } = {};
   showComments: { [postId: string]: boolean } = {};
   showPostForm: boolean = false;
+  showComment: boolean = false;
   showCommentForm: { [postId: string]: boolean } = {};
   currentPostId: string | null = null;
   currentUserId: string | undefined = undefined;
@@ -36,7 +38,8 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   constructor(
     private postService: PostService,
     private commentService: CommentService,
-    private authService: AuthService
+    private authService: AuthService,
+    private auth: Auth
   ) {}
 
   ngOnInit(): void {
@@ -49,9 +52,19 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   }
 
   private loadCurrentUser(): void {
-    this.authService.getCurrentUser().subscribe((user) => {
-      this.currentUserId = user?.uid;
-    });
+    user(this.auth)
+      .pipe(
+        switchMap((authUser) => {
+          if (authUser) {
+            this.currentUserId = authUser.uid;
+            console.log(this.currentUserId);
+          }
+          return [];
+        })
+      )
+      .subscribe();
+
+    this.authService.getCurrentUser().subscribe();
   }
   private loadPostsAndComments(): void {
     this.subscription.add(
@@ -127,10 +140,11 @@ export class BlogPostComponent implements OnInit, OnDestroy {
 
   onClosePostForm(): void {
     this.showPostForm = false;
+    this.showComment = false;
     this.currentPostId = null;
   }
 
-  onCloseCommentForm(postId:string) {
+  onCloseCommentForm(postId: string) {
     this.showCommentForm[postId] = false;
     this.currentPostId = null;
   }

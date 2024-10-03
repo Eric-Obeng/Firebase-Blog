@@ -5,8 +5,9 @@
       [formGroup]="loginForm"
       (ngSubmit)="onLogin()"
       aria-label="Login form"
+      class="form"
     >
-      <div class="email">
+      <div class="email form-group">
         <label for="email">Email</label>
         <input
           type="email"
@@ -21,7 +22,7 @@
           Please enter your email address.
         </span>
       </div>
-      <div class="password">
+      <div class="password form-group">
         <label for="password">Password</label>
         <input
           type="password"

@@ -36,8 +36,8 @@ export class CommentService {
     const commentData: Comment = {
       ...comment,
       id: commentId,
-      createdAt: new Date(),
-      updatedAt: new Date(),
+      createdAt: new Date().toLocaleDateString(),
+      updatedAt: new Date().toLocaleDateString(),
     };
 
     await setDoc(newCommentDoc, this.filterUndefinedFields(commentData));
@@ -76,8 +76,10 @@ export class CommentService {
             id: docSnap.id,
             content: data.content,
             author: data.author,
-            createdAt: data.createdAt.toDate(), // Convert Timestamp to Date
-            updatedAt: data.updatedAt ? data.updatedAt.toDate() : undefined, // Handle optional property
+            createdAt: new Date().toLocaleDateString(),
+            updatedAt: data.updatedAt
+              ? new Date().toLocaleDateString()
+              : undefined,
           } as Comment;
         }
         return undefined;
@@ -97,7 +99,7 @@ export class CommentService {
 
     // Always update the updatedAt field
     await updateDoc(commentDoc, {
-      ...this.filterUndefinedFields({ ...comment, updatedAt: new Date() }),
+      ...this.filterUndefinedFields({ ...comment, updatedAt: new Date().toLocaleDateString() }),
     });
   }
 
