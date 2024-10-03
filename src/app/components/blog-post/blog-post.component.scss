@@ -14,9 +14,8 @@
     padding: 1rem;
 
     span {
-      color: $color-100
+      color: $color-100;
     }
-
   }
 
   .profile {
@@ -43,7 +42,44 @@
 
       .post-actions {
         width: 100%;
-        @include flex-row(flex-start, space-between);
+        @include flex-row(center, space-between);
+
+        button {
+          background: none;
+          border: none;
+          position: relative;
+
+          .img-div {
+            width: 4rem;
+          }
+
+          .number {
+            @include flex-column(center, center);
+            position: absolute;
+            top: 0;
+            background: $color-100;
+            padding: 1rem;
+            border-radius: 50%;
+            height: 2rem;
+            width: 2rem;
+            text-align: center;
+            color: $white;
+          }
+        }
+
+        .actions {
+          @include flex-row(center, center, 1rem);
+
+          button {
+            cursor: pointer;
+            width: 2.5rem;
+          }
+        }
+
+        .add {
+          width: 2.5rem;
+          cursor: pointer;
+        }
       }
     }
   }

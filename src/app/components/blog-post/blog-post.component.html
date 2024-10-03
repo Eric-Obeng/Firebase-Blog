@@ -17,13 +17,21 @@
       </div>
       <div class="post-actions">
         <button (click)="onShowComment(post.id!)">
-          Comment {{ comments[post.id!].length || 0 }}
+          <div class="img-div">
+            <img src="../../../assets/images/comment.svg" alt="comment svg" />
+          </div>
+
+          <p class="number">{{ comments[post.id!]?.length || 0 }}</p>
         </button>
         <div class="actions" *ngIf="post.authorId === currentUserId">
-          <button (click)="onShowPostForm(post.id)">Edit</button>
-          <button (click)="onDeletePost(post.id)">Delete</button>
+          <button (click)="onShowPostForm(post.id)" class="edit" title="edit post">
+            <img src="../../../assets/images/edit-comment.svg" alt="edit svg" />
+          </button>
+          <button (click)="onDeletePost(post.id)" class="delete" title="delete post">
+            <img src="../../../assets/images/delete.svg" alt="delete svg">
+          </button>
         </div>
-        <button (click)="onShowCommentForm(post.id)">Add Comment</button>
+        <button (click)="onShowCommentForm(post.id)" class="add" title="add comment"><img src="../../../assets/images/add.svg" alt=""></button>
       </div>
     </div>
 
