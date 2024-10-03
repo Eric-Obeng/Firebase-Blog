@@ -1,0 +1,50 @@
+@use "../../../stylesheet/mixins" as *;
+@use "../../../stylesheet/variables" as *;
+
+.blog-post {
+  width: 100%;
+  @include flex-column(flex-start, flex-start, 2rem);
+
+  .logo {
+    width: 100%;
+    @include flex-row(flex-end, flex-end, 0.4rem);
+    background-color: $color-200;
+    color: $white;
+    font-size: 3rem;
+    padding: 1rem;
+
+    span {
+      color: $color-100
+    }
+
+  }
+
+  .profile {
+    width: 100%;
+    padding: 1rem 0;
+  }
+
+  .post {
+    width: 100%;
+    background-color: #f8f8f8;
+    padding: 1.5rem;
+    border-radius: 1.2rem;
+    cursor: pointer;
+
+    .post-div {
+      width: 100%;
+      @include flex-column(flex-start, flex-start, 1rem);
+
+      .post.content {
+        .createdAt {
+          font-size: 1.2rem;
+        }
+      }
+
+      .post-actions {
+        width: 100%;
+        @include flex-row(flex-start, space-between);
+      }
+    }
+  }
+}

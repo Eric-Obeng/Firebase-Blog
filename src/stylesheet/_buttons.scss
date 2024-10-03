@@ -1,0 +1,9 @@
+@use "./variables" as *;
+
+.btn {
+  
+  border: 0.2rem solid transparent;
+  border-radius: 1.2rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}

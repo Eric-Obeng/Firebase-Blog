@@ -1,0 +1,75 @@
+@use "../../../stylesheet/mixins" as *;
+@use "../../../stylesheet/variables" as *;
+@use "../../../stylesheet/buttons" as *;
+
+.profile {
+  width: 100%;
+  @include flex-column(flex-start, flex-start, 1.2rem);
+
+  .profile-detals {
+    @include flex-row(center, space-between, 2rem);
+    width: 100%;
+
+    .user-info {
+      @include flex-row(center, flex-start, 1rem);
+
+      .user-img {
+        width: 6rem;
+        height: 6rem;
+
+        img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+          object-position: center;
+          border-radius: 50%;
+        }
+      }
+
+      .user-details {
+        .user-name {
+          font-size: 2.3rem;
+        }
+      }
+    }
+
+    .user-actions {
+      button {
+        @extend .btn;
+        border: 0.2rem solid $color-100;
+        background: none;
+        padding: 1rem;
+        font-size: 1.5rem;
+        font-weight: bold;
+
+        &:hover {
+          background: $color-200;
+          border: none;
+          color: $white;
+        }
+      }
+    }
+  }
+
+  .create-post {
+    width: 100%;
+    @include flex-column(center, space-between,1rem);
+
+    p {
+      font-size: 2rem;
+    }
+
+    .btn {
+      @extend .btn;
+      background: $color-200;
+      color: $white;
+      padding: 1rem;
+      font-size: 2rem;
+      width: 13rem;
+
+      &:hover {
+        background: $color-100;
+      }
+    }
+  }
+}

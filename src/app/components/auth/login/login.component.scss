@@ -1,0 +1,37 @@
+@use "../../../../stylesheet/mixins" as *;
+@use "../../../../stylesheet/buttons" as *;
+@use "../../../../stylesheet/variables" as *;
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}
+
+.login-div {
+  height: 100vh;
+  width: 100%;
+  @include flex-row(center, center);
+
+  .login-form {
+    @include flex-column(flex-start, center, 2rem);
+    border: .2rem solid red;
+    width: 40rem;
+    padding: 2rem;
+
+    .form {
+      @include flex-column(flex-start, center, 2rem);
+      width: 100%;
+
+      .form-group {
+        @include flex-column(flex-start, center, 0.2rem);
+        width: 100%;
+      }
+    }
+  }
+}

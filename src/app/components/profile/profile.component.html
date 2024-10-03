@@ -1,0 +1,35 @@
+<div class="user" *ngIf="user" aria-labelledby="user-info" class="profile">
+  <h2>Welcome, {{ user.displayName | uppercase }}</h2>
+  <div class="profile-detals">
+    <div
+      class="user-info"
+      id="user-info"
+      aria-labelledby="user-name user-email"
+    >
+      <div class="user-img" aria-hidden="true">
+        <img
+          *ngIf="user.photoURL"
+          [src]="user.photoURL"
+          alt="User profile picture"
+        />
+      </div>
+      <div class="user-details">
+        <p class="user-name">{{ user.displayName }}</p>
+        <p class="user-email">{{ user.email }}</p>
+      </div>
+    </div>
+    <div class="user-actions">
+      <button (click)="onLogout()" aria-label="Log out from your account">
+        Logout
+      </button>
+    </div>
+  </div>
+  <div class="create-post">
+    <p>You have something to share? </p>
+    <button class="btn" (click)="onShowPostModal()">Create Post</button>
+  </div>
+</div>
+
+@if (showPostModal) {
+<app-create-post (closeForm)="onShowPostModal()" />
+}

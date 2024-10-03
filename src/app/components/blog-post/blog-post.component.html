@@ -1,0 +1,62 @@
+<div class="blog-post">
+  <div class="logo">Firebase <span>Blog</span></div>
+  <div class="profile">
+    <app-profile />
+  </div>
+  <div
+    *ngFor="let post of posts"
+    class="post"
+    (click)="onShowComment(post.id!)"
+    role="button"
+  >
+    <div class="post-div">
+      <div class="post-content">
+        <p class="name">{{ post.author }}</p>
+        <h2 class="title">{{ post.title }}</h2>
+        <p class="createdAt">{{ post.createdAt | date }}</p>
+      </div>
+      <div class="post-actions">
+        <button (click)="onShowComment(post.id!)">
+          Comment {{ comments[post.id!].length || 0 }}
+        </button>
+        <div class="actions" *ngIf="post.authorId === currentUserId">
+          <button (click)="onShowPostForm(post.id)">Edit</button>
+          <button (click)="onDeletePost(post.id)">Delete</button>
+        </div>
+        <button (click)="onShowCommentForm(post.id)">Add Comment</button>
+      </div>
+    </div>
+
+    <div *ngIf="showCommentForm[post.id]">
+      <app-create-comment
+        [postId]="post.id"
+        (closeForm)="onCloseCommentForm(post.id)"
+      />
+    </div>
+    <div *ngIf="showPostForm && currentPostId === post.id">
+      <app-create-post [postId]="post.id" (closeForm)="onClosePostForm()" />
+    </div>
+
+    <div *ngIf="showComments[post.id!]">
+      <p>{{ post.content }}</p>
+      <h3>Comments:</h3>
+
+      <ul
+        *ngIf="
+          comments[post.id] && comments[post.id].length > 0;
+          else noComments
+        "
+      >
+        <div *ngFor="let comment of comments[post.id]">
+          <p>{{ comment.author }}</p>
+          <p>{{ comment.content }}</p>
+          <p>{{ comment.createdAt }}</p>
+        </div>
+      </ul>
+
+      <ng-template #noComments>
+        <p>No comments for this post.</p>
+      </ng-template>
+    </div>
+  </div>
+</div>

@@ -1,1 +1,10 @@
 /* You can add global styles to this file, and also import other style files */
+@use "./stylesheet/reset" as *;
+@use "./stylesheet/mixins" as *;
+@use "./stylesheet/variables" as *;
+
+body {
+  padding: 1.5rem;
+  background-color: #ffffff;
+  color: $color-300;
+}

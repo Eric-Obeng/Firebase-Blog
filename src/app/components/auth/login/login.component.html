@@ -1,0 +1,65 @@
+<div class="login-div" role="form" aria-labelledby="login-heading">
+  <div class="login-form">
+    <h2 id="login-heading">Login</h2>
+    <form
+      [formGroup]="loginForm"
+      (ngSubmit)="onLogin()"
+      aria-label="Login form"
+      class="form"
+    >
+      <div class="email form-group">
+        <label for="email">Email</label>
+        <input
+          type="email"
+          name="email"
+          id="email"
+          formControlName="email"
+          autocomplete="email"
+          aria-required="true"
+          aria-describedby="email-help"
+        />
+        <span id="email-help" class="visually-hidden">
+          Please enter your email address.
+        </span>
+      </div>
+      <div class="password form-group">
+        <label for="password">Password</label>
+        <input
+          type="password"
+          name="password"
+          id="password"
+          formControlName="password"
+          autocomplete="current-password"
+          aria-required="true"
+          aria-describedby="password-help"
+        />
+        <span id="password-help" class="visually-hidden">
+          Please enter your password.
+        </span>
+      </div>
+      <div>
+        <button
+          type="button"
+          (click)="onGoggleSignIn()"
+          aria-label="Sign in with Google"
+        >
+          Sign in with Google
+        </button>
+      </div>
+      <p *ngIf="errorMessage" class="error-message" role="alert">
+        {{ errorMessage }}
+      </p>
+      <div class="submit">
+        <button type="submit" aria-label="Submit login form">Login</button>
+      </div>
+    </form>
+    <div>
+      <p>
+        Don't have an account?
+        <a [routerLink]="['', 'register']" aria-label="Register an account"
+          >Register</a
+        >
+      </p>
+    </div>
+  </div>
+</div>
