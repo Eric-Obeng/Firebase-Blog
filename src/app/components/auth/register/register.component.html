@@ -21,6 +21,20 @@
         <span id="username-help" class="visually-hidden">
           Please enter your username.
         </span>
+        <!-- Error message for username -->
+        <p
+          *ngIf="
+            registerForm.get('username')?.invalid &&
+            (registerForm.get('username')?.touched ||
+              registerForm.get('username')?.dirty)
+          "
+          class="error-message"
+        >
+          <ng-container
+            *ngIf="registerForm.get('username')?.errors?.['required']"
+            >Username is required.</ng-container
+          >
+        </p>
       </div>
       <div class="email form-group">
         <label for="email">Email</label>
@@ -36,6 +50,22 @@
         <span id="email-help" class="visually-hidden">
           Please enter your email address.
         </span>
+        <!-- Error message for email -->
+        <p
+          *ngIf="
+            registerForm.get('email')?.invalid &&
+            (registerForm.get('email')?.touched ||
+              registerForm.get('email')?.dirty)
+          "
+          class="error-message"
+        >
+          <ng-container *ngIf="registerForm.get('email')?.errors?.['required']"
+            >Email is required.</ng-container
+          >
+          <ng-container *ngIf="registerForm.get('email')?.errors?.['email']"
+            >Please enter a valid email address.</ng-container
+          >
+        </p>
       </div>
       <div class="password form-group">
         <label for="password">Password</label>
@@ -51,6 +81,24 @@
         <span id="password-help" class="visually-hidden">
           Please enter your password.
         </span>
+        <!-- Error message for password -->
+        <p
+          *ngIf="
+            registerForm.get('password')?.invalid &&
+            (registerForm.get('password')?.touched ||
+              registerForm.get('password')?.dirty)
+          "
+          class="error-message"
+        >
+          <ng-container
+            *ngIf="registerForm.get('password')?.errors?.['required']"
+            >Password is required.</ng-container
+          >
+          <ng-container
+            *ngIf="registerForm.get('password')?.errors?.['minlength']"
+            >Password must be at least 6 characters long.</ng-container
+          >
+        </p>
       </div>
       <div class="profile-img form-group">
         <label for="profile-img">Profile Image</label>

@@ -7,6 +7,7 @@
       aria-label="Login form"
       class="form"
     >
+      <!-- Email Field -->
       <div class="email form-group">
         <label for="email">Email</label>
         <input
@@ -18,10 +19,30 @@
           aria-required="true"
           aria-describedby="email-help"
         />
-        <span id="email-help" class="visually-hidden">
-          Please enter your email address.
-        </span>
+        <!-- Error messages for email -->
+        <p
+          *ngIf="
+            loginForm.get('email')?.touched &&
+            loginForm.get('email')?.dirty &&
+            loginForm.get('email')?.hasError('required')
+          "
+          class="error"
+        >
+          Email is required.
+        </p>
+        <p
+          *ngIf="
+            loginForm.get('email')?.touched &&
+            loginForm.get('email')?.dirty &&
+            loginForm.get('email')?.hasError('email')
+          "
+          class="error"
+        >
+          Please enter a valid email address.
+        </p>
       </div>
+
+      <!-- Password Field -->
       <div class="password form-group">
         <label for="password">Password</label>
         <input
@@ -33,25 +54,51 @@
           aria-required="true"
           aria-describedby="password-help"
         />
-        <span id="password-help" class="visually-hidden">
-          Please enter your password.
-        </span>
+        <!-- Error messages for password -->
+        <p
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.dirty &&
+            loginForm.get('password')?.hasError('required')
+          "
+          class="error"
+        >
+          Password is required.
+        </p>
+        <p
+          *ngIf="
+            loginForm.get('password')?.touched &&
+            loginForm.get('password')?.dirty &&
+            loginForm.get('password')?.hasError('minlength')
+          "
+          class="error"
+        >
+          Password must be at least 6 characters long.
+        </p>
       </div>
+
+      <!-- Google Sign In Button -->
       <div class="form-group">
         <button
           type="button"
-          (click)="onGoggleSignIn()"
+          (click)="onGoogleSignIn()"
           aria-label="Sign in with Google"
         >
           Sign in with Google
         </button>
       </div>
+
+      <!-- Error message display from auth service -->
       <p *ngIf="errorMessage" class="error-message" role="alert">
         {{ errorMessage }}
       </p>
+
+      <!-- Submit Button -->
       <div class="submit form-group">
         <button type="submit" aria-label="Submit login form">Login</button>
       </div>
+
+      <!-- Register Link -->
       <div class="form-group">
         <p class="account">
           Don't have an account?

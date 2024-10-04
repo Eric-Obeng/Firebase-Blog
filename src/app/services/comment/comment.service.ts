@@ -66,10 +66,10 @@ export class CommentService {
       map((docSnap) => {
         if (docSnap.exists()) {
           const data = docSnap.data() as {
-            content: string; // Assuming content is of type string
-            author: string; // Assuming author is of type string
-            createdAt: Timestamp; // Should be of type Timestamp
-            updatedAt?: Timestamp; // Optional
+            content: string;
+            author: string;
+            createdAt: Timestamp;
+            updatedAt?: Timestamp;
           };
 
           return {

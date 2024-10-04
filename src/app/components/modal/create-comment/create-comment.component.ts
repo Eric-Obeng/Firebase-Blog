@@ -21,11 +21,12 @@ import { CommonModule } from '@angular/common';
 export class CreateCommentComponent implements OnInit {
   @Input() postId!: string;
   @Input() isEditMode: boolean = false;
-  @Input() commentId!: string;
+  @Input() commentId: string | null = null;
   @Output() closeForm = new EventEmitter<void>();
 
   commentForm!: FormGroup;
   displayName: string | null = '';
+  authorId: string | null = null;
 
   constructor(
     private commentService: CommentService,
@@ -52,15 +53,16 @@ export class CreateCommentComponent implements OnInit {
   private setAuthorName(): void {
     user(this.auth)
       .pipe(
-        take(1), // Unsubscribe after one emission
+        take(1),
         switchMap((authUser) => {
           if (authUser && authUser.displayName) {
             this.displayName = authUser.displayName;
+            this.authorId = authUser.uid;
             this.commentForm.patchValue({
               author: this.displayName,
             });
           }
-          return []; // Return empty observable
+          return [];
         })
       )
       .subscribe();
@@ -68,13 +70,12 @@ export class CreateCommentComponent implements OnInit {
 
   private loadCommentData(): void {
     this.commentService
-      .getCommentById(this.postId, this.commentId)
+      .getCommentById(this.postId, this.commentId!)
       .subscribe((comment) => {
         if (comment) {
           this.commentForm.patchValue({
             content: comment.content,
-            // The author field is disabled and should retain the display name
-            author: this.displayName, // Set author to the current user's display name
+            author: this.displayName,
           });
         }
       });
@@ -85,9 +86,9 @@ export class CreateCommentComponent implements OnInit {
 
     const commentData: Comment = {
       ...this.commentForm.getRawValue(),
-      createdAt: new Date(),
-      // Only set updatedAt if in edit mode
-      updatedAt: this.isEditMode ? new Date() : undefined,
+      authorId: this.authorId,
+      createdAt: new Date().toLocaleDateString(),
+      updatedAt: this.isEditMode ? new Date().toLocaleDateString() : undefined,
     };
 
     if (this.isEditMode && this.commentId) {

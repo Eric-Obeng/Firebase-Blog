@@ -35,6 +35,18 @@ export class RegisterComponent {
     });
   }
 
+  get email() {
+    return this.registerForm.get('email');
+  }
+
+  get password() {
+    return this.registerForm.get('password');
+  }
+
+  get username() {
+    return this.registerForm.get('username');
+  }
+
   onFileSelected(event: Event) {
     const file = (event.target as HTMLInputElement).files![0];
 

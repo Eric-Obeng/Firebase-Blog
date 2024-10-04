@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { PostService } from '../../services/post/post.service';
 import { CommentService } from '../../services/comment/comment.service';
 import { AuthService } from '../../services/auth/auth.service';
@@ -29,9 +29,13 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   showComments: { [postId: string]: boolean } = {};
   showPostForm: boolean = false;
   showComment: boolean = false;
+  editComment: boolean = false;
   showCommentForm: { [postId: string]: boolean } = {};
   currentPostId: string | null = null;
   currentUserId: string | undefined = undefined;
+
+  commentId: string | null = null;
+
 
   private subscription: Subscription = new Subscription();
 
@@ -57,7 +61,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         switchMap((authUser) => {
           if (authUser) {
             this.currentUserId = authUser.uid;
-            console.log(this.currentUserId);
           }
           return [];
         })
@@ -71,7 +74,6 @@ export class BlogPostComponent implements OnInit, OnDestroy {
       this.postService.getPosts().subscribe({
         next: (posts) => {
           this.posts = posts;
-          console.log('Posts loaded:', this.posts);
           this.loadCommentsForPosts(posts);
         },
         error: (err) => {
@@ -87,13 +89,9 @@ export class BlogPostComponent implements OnInit, OnDestroy {
       return;
     }
 
-    console.log(`Loading comments for ${posts.length} posts`);
-
     const commentObservables = posts.map((post) => {
-      console.log(`Creating observable for post ID: ${post.id}`);
       return this.commentService.getComments(post.id!).pipe(
         tap((comments) => {
-          console.log(`Fetched comments for post ID ${post.id}:`, comments);
           this.comments[post.id!] = comments;
         }),
         catchError((error) => {
@@ -128,9 +126,17 @@ export class BlogPostComponent implements OnInit, OnDestroy {
     this.showComments[postId] = !this.showComments[postId];
   }
 
-  onShowCommentForm(postId: string) {
+  onShowCommentForm(postId: string, commentId?: string) {
     this.currentPostId = postId;
     this.showCommentForm[postId] = !this.showCommentForm[postId];
+
+    if (commentId) {
+      this.editComment = true;
+      this.commentId = commentId;
+    } else {
+      this.editComment = false;
+      this.commentId = null;
+    }
   }
 
   onShowPostForm(postId: string) {
@@ -147,6 +153,7 @@ export class BlogPostComponent implements OnInit, OnDestroy {
   onCloseCommentForm(postId: string) {
     this.showCommentForm[postId] = false;
     this.currentPostId = null;
+    this.commentId = null
   }
 
   onDeletePost(postId: string) {
@@ -159,6 +166,22 @@ export class BlogPostComponent implements OnInit, OnDestroy {
         })
         .catch((error) => {
           console.error('Error deleting post:', error);
+        });
+    }
+  }
+
+  onDeleteComment(postId: string, commentId: string) {
+    if (confirm('Are you sure you want to delete this comment?')) {
+      this.commentService
+        .deleteComment(postId, commentId)
+        .then(() => {
+          this.comments[postId] = this.comments[postId].filter(
+            (comment) => comment.id !== commentId
+          );
+          console.log('Comment deleted successfully!');
+        })
+        .catch((error) => {
+          console.error('Error deleting comment:', error);
         });
     }
   }

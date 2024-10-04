@@ -19,6 +19,15 @@ body {
   font-size: 1.6rem;
 }
 
+button {
+  background: none;
+  border: none;
+
+  &.btn {
+    width: 2rem;
+  }
+}
+
 img {
   max-width: 100%;
   display: block;

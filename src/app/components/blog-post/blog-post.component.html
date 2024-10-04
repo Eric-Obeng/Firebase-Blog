@@ -11,25 +11,52 @@
   >
     <div class="post-div">
       <div class="post-content">
-        <p class="name">{{ post.author }}</p>
-        <h2 class="title">{{ post.title }}</h2>
+        <div class="col-1">
+          <p class="name">&#64;{{ post.author }}</p>
+          <h2 class="title">{{ post.title }}</h2>
+        </div>
         <p class="createdAt">{{ post.createdAt | date }}</p>
       </div>
+      <p>{{ post.content }}</p>
       <div class="post-actions">
         <button (click)="onShowComment(post.id!)">
-          Comment {{ comments[post.id!].length || 0 }}
+          <div class="img-div">
+            <img src="../../../assets/images/comment.svg" alt="comment svg" />
+          </div>
+
+          <p class="number">{{ comments[post.id!]?.length || 0 }}</p>
         </button>
         <div class="actions" *ngIf="post.authorId === currentUserId">
-          <button (click)="onShowPostForm(post.id)">Edit</button>
-          <button (click)="onDeletePost(post.id)">Delete</button>
+          <button
+            (click)="onShowPostForm(post.id)"
+            class="edit"
+            title="edit post"
+          >
+            <img src="../../../assets/images/edit-comment.svg" alt="edit svg" />
+          </button>
+          <button
+            (click)="onDeletePost(post.id)"
+            class="delete"
+            title="delete post"
+          >
+            <img src="../../../assets/images/delete.svg" alt="delete svg" />
+          </button>
         </div>
-        <button (click)="onShowCommentForm(post.id)">Add Comment</button>
+        <button
+          (click)="onShowCommentForm(post.id)"
+          class="add"
+          title="add comment"
+        >
+          <img src="../../../assets/images/add.svg" alt="" />
+        </button>
       </div>
     </div>
 
     <div *ngIf="showCommentForm[post.id]">
       <app-create-comment
         [postId]="post.id"
+        [commentId]="editComment ? commentId : ''"
+        [isEditMode]="editComment"
         (closeForm)="onCloseCommentForm(post.id)"
       />
     </div>
@@ -37,20 +64,40 @@
       <app-create-post [postId]="post.id" (closeForm)="onClosePostForm()" />
     </div>
 
-    <div *ngIf="showComments[post.id!]">
-      <p>{{ post.content }}</p>
-      <h3>Comments:</h3>
-
+    <div *ngIf="showComments[post.id!]" class="comment-div">
       <ul
         *ngIf="
           comments[post.id] && comments[post.id].length > 0;
           else noComments
         "
       >
-        <div *ngFor="let comment of comments[post.id]">
+        <div *ngFor="let comment of comments[post.id]" class="comment">
           <p>{{ comment.author }}</p>
           <p>{{ comment.content }}</p>
           <p>{{ comment.createdAt }}</p>
+
+          <div *ngIf="comment.authorId === currentUserId">
+            <button
+              class="btn"
+              (click)="onShowCommentForm(post.id, comment.id)"
+              title="Edit Comment"
+            >
+              <img
+                src="../../../assets/images/edit-comment.svg"
+                alt="edit comment svg"
+              />
+            </button>
+            <button
+              (click)="onDeleteComment(post.id, comment.id)"
+              title="Delete Comment"
+              class="btn"
+            >
+              <img
+                src="../../../assets/images/delete.svg"
+                alt="delete comment svg"
+              />
+            </button>
+          </div>
         </div>
       </ul>
 

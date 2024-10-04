@@ -1,0 +1,30 @@
+@use "../../../../stylesheet/buttons" as *;
+@use "../../../../stylesheet/mixins" as *;
+@use "../../../../stylesheet/variables" as *;
+
+.post-form-container {
+  width: 100%;
+  padding: 1rem;
+  @include flex-column(center, center, 1rem);
+
+  form {
+    @include flex-column(flex-start, center, 2rem);
+    width: 25rem;
+
+    .form-group {
+      @include flex-column(flex-start, center, 0.2rem);
+      width: 100%;
+
+      input,
+      textarea {
+        width: 100%;
+
+        &.author {
+          background: none;
+          border: none;
+          opacity: 0.4;
+        }
+      }
+    }
+  }
+}
