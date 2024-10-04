@@ -34,7 +34,11 @@
       width: 100%;
       @include flex-column(flex-start, flex-start, 1rem);
 
-      .post.content {
+      .post-content {
+        width: 100%;
+        @include flex-row(flex-start, space-between);
+
+
         .createdAt {
           font-size: 1.2rem;
         }
@@ -79,6 +83,22 @@
         .add {
           width: 2.5rem;
           cursor: pointer;
+        }
+      }
+    }
+
+    .comment-div {
+      width: 100%;
+
+      ul {
+        width: 100%;
+        @include flex-column(flex-start, flex-start, 1rem);
+
+        .comment {
+          width: 100%;
+          background-color: yellow;
+          padding: 1.2rem;
+          border-radius: 1.5rem;
         }
       }
     }
