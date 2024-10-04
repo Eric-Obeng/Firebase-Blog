@@ -1,0 +1,95 @@
+@use "../../../../stylesheet/variables" as *;
+@use "../../../../stylesheet/mixins" as *;
+@use "../../../../stylesheet/buttons" as *;
+
+.comment-form {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1.5rem;
+  background-color: $white;
+  border: 1px solid $color-200;
+  border-radius: 0.5rem;
+
+  form {
+    @include flex-column(flex-start, flex-start, 2rem);
+
+    .form-group {
+      width: 100%;
+      @include flex-column(flex-start, flex-start, 0.5rem);
+
+      input,
+      textarea {
+        width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-bottom: 1px solid $color-200;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        color: $color-300;
+        background-color: $white;
+        transition: border-color 0.3s ease-in-out;
+
+        &:focus {
+          outline: none;
+          border-color: $color-100;
+        }
+
+        &::placeholder {
+          color: $color-200;
+        }
+
+        &:disabled {
+          background-color: lighten($color-100, 45%);
+          color: $color-200;
+        }
+      }
+    }
+
+    .error-message {
+      font-size: 0.875rem;
+      color: red;
+      padding: 0.25rem 0;
+    }
+
+    .form-actions {
+      width: 100%;
+      display: flex;
+      gap: 1rem;
+
+      button {
+        width: 100%;
+        padding: 0.75rem 1.5rem;
+        border: none;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &.btn-primary {
+          background-color: $color-100;
+          color: $white;
+
+          &:hover {
+            background-color: darken($color-100, 10%);
+            transform: translateY(-3px);
+          }
+
+          &:disabled {
+            background-color: lighten($color-100, 35%);
+            cursor: not-allowed;
+          }
+        }
+
+        &.btn-secondary {
+          background-color: $color-200;
+          color: $white;
+
+          &:hover {
+            background-color: darken($color-200, 10%);
+            transform: translateY(-3px);
+          }
+        }
+      }
+    }
+  }
+}
