@@ -96,11 +96,19 @@
 
         .comment {
           width: 100%;
-          background-color: yellow;
+          background-color: $white;
           padding: 1.2rem;
           border-radius: 1.5rem;
         }
       }
     }
+  }
+}
+
+
+@media (min-width: 768px){
+  .blog-post {
+    max-width: 768px;
+    margin: auto
   }
 }

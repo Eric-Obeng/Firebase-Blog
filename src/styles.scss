@@ -3,8 +3,11 @@
 @use "./stylesheet/mixins" as *;
 @use "./stylesheet/variables" as *;
 
+@import url("https://fonts.googleapis.com/css2?family=Afacad+Flux:wght@100..1000&display=swap");
+
 body {
   padding: 1.5rem;
   background-color: #ffffff;
   color: $color-300;
+  font-family: "Afacad Flux", sans-serif;
 }

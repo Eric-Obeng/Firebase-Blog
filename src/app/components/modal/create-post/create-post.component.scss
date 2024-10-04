@@ -2,6 +2,7 @@
 @use "../../../../stylesheet/mixins" as *;
 @use "../../../../stylesheet/variables" as *;
 
+
 .post-form-container {
   width: 100%;
   padding: 1rem;
@@ -9,7 +10,7 @@
 
   form {
     @include flex-column(flex-start, center, 2rem);
-    width: 25rem;
+    width: 100%;
 
     .form-group {
       @include flex-column(flex-start, center, 0.2rem);
@@ -18,11 +19,73 @@
       input,
       textarea {
         width: 100%;
+        padding: 0.75rem;
+        border: none;
+        border-bottom: 1px solid $color-200;
+        border-radius: 0.25rem;
+        background-color: $white;
+        color: $color-300;
+        font-size: 1rem;
+        transition: border-color 0.3s ease-in-out, background-color 0.3s ease;
+
+        &::placeholder {
+          color: lighten($color-200, 15%);
+        }
+
+        &:focus {
+          outline: none;
+          border-color: $color-100;
+          background-color: lighten($color-100, 40%);
+        }
+
+        &.invalid {
+          border-color: red;
+        }
 
         &.author {
           background: none;
           border: none;
           opacity: 0.4;
+        }
+
+        &:disabled {
+          background-color: lighten($color-100, 45%);
+          color: $color-200;
+        }
+      }
+
+      textarea {
+        resize: vertical;
+      }
+
+      .error-message {
+        font-size: 0.875rem;
+        color: red;
+        padding-top: 0.25rem;
+      }
+    }
+
+    .form-actions {
+      @include flex-row(center, space-between);
+      width: 100%;
+
+      button {
+        background-color: $color-100;
+        color: $white;
+        padding: 0.75rem 1.5rem;
+        border-radius: 0.25rem;
+        font-size: 1rem;
+        cursor: pointer;
+        transition: background-color 0.3s ease, transform 0.3s ease;
+
+        &:hover {
+          background-color: darken($color-100, 10%);
+          transform: translateY(-3px);
+        }
+
+        &:disabled {
+          background-color: lighten($color-100, 35%);
+          cursor: not-allowed;
         }
       }
     }
