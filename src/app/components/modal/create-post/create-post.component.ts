@@ -91,7 +91,7 @@ export class CreatePostComponent implements OnInit {
     if (this.postForm.invalid) return;
 
     const postData: Post = {
-      ...this.postForm.getRawValue(), // Get all form values including disabled fields
+      ...this.postForm.getRawValue(), 
       authorId: this.userId!,
       createdAt: this.isEditMode ? this.postToEdit?.createdAt : new Date().toLocaleDateString(),
       updatedAt: new Date().toLocaleDateString(),
